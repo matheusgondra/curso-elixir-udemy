@@ -6,6 +6,10 @@ defmodule ExMon.Game do
     Agent.start_link(fn -> initial_value end, name: __MODULE__)
   end
 
+  def update(state) do
+    Agent.update(__MODULE__, fn _ -> state end)
+  end
+
   def info do
     Agent.get(__MODULE__, & &1)
   end
@@ -13,4 +17,6 @@ defmodule ExMon.Game do
   def player, do: Map.get(info(), :player)
 
   def turn, do: Map.get(info(), :turn)
+
+  def fetch_player(player), do: Map.get(info(), player)
 end
